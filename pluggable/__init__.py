@@ -6,16 +6,17 @@ from pkg_resources import working_set
 
 logger = logging.getLogger(__name__)
 
-ENTRY_POINT_APP = 'django.apps'
 ENTRY_POINT_API = 'rest.apps'
+ENTRY_POINT_APP = 'django.apps'
+ENTRY_POINT_URL = 'django.urls'
 
 
 def add_urls(urlpatterns):
     from django.conf.urls import include, url
-    for entry in working_set.iter_entry_points(ENTRY_POINT_APP):
+    for entry in working_set.iter_entry_points(ENTRY_POINT_URL):
         try:
             urlpatterns.append(
-                url(r'^{0}/'.format(entry.name), include('{0}.urls'.format(entry.module_name), namespace=entry.name))
+                url(r'^{0}/'.format(entry.name), include(entry.module_name, namespace=entry.name))
             )
         except ImportError:
             logger.error('Error importing %s', entry.name)
