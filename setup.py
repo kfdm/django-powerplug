@@ -1,16 +1,19 @@
 from setuptools import find_packages, setup
 
+from powerplug.version import __version__
+
 setup(
-    name='tsundere',
+    name='django-powerplug',
+    version=__version__,
     author='Paul Traylor',
-    url='http://github.com/kfdm/tsundere/',
+    url='https://github.com/kfdm/django-powerplug',
     packages=find_packages(exclude=['test']),
     install_requires=[
-        'Django == 1.8.2',
+        'Django',
     ],
     entry_points={
-        'django.apps': [
-            'pluggable = pluggable',
+        'powerplug.apps': [
+            'powerplug = powerplug',
         ],
     }
 )

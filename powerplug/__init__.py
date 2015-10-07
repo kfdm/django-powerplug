@@ -6,9 +6,9 @@ from pkg_resources import working_set
 
 logger = logging.getLogger(__name__)
 
-ENTRY_POINT_API = 'rest.apps'
-ENTRY_POINT_APP = 'django.apps'
-ENTRY_POINT_URL = 'django.urls'
+ENTRY_POINT_API = 'powerplug.rest'
+ENTRY_POINT_APP = 'powerplug.apps'
+ENTRY_POINT_URL = 'powerplug.urls'
 
 
 def add_urls(urlpatterns):
