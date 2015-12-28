@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 ENTRY_POINT_API = 'powerplug.rest'
 ENTRY_POINT_APP = 'powerplug.apps'
 ENTRY_POINT_URL = 'powerplug.urls'
+ENTRY_POINT_NAV = 'powerplug.subnav'
 
 
 def add_urls(urlpatterns):
@@ -19,7 +20,7 @@ def add_urls(urlpatterns):
                 url(r'^{0}/'.format(entry.name), include(entry.module_name, namespace=entry.name))
             )
         except ImportError:
-            logger.error('Error importing %s', entry.name)
+            logger.exception('Error importing %s', entry.name)
 
 
 def add_apis(urlpatterns):
@@ -30,7 +31,7 @@ def add_apis(urlpatterns):
         try:
             router.register(r'^{0}'.format(entry.name), entry.load())
         except ImportError:
-            logger.error('Error importing %s', entry.name)
+            logger.exception('Error importing %s', entry.name)
 
     urlpatterns += url(r'^api/', include(router.urls, namespace='api')),
 
