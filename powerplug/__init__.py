@@ -29,7 +29,7 @@ def add_apis(urlpatterns):
     router = routers.DefaultRouter()
     for entry in working_set.iter_entry_points(ENTRY_POINT_API):
         try:
-            router.register(r'^{0}'.format(entry.name), entry.load())
+            router.register(entry.name, entry.load())
         except ImportError:
             logger.exception('Error importing %s', entry.name)
 
