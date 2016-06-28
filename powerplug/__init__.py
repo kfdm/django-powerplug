@@ -26,7 +26,7 @@ def add_urls(urlpatterns):
 def add_apis(urlpatterns):
     from django.conf.urls import include, url
     from rest_framework import routers
-    router = routers.DefaultRouter()
+    router = routers.DefaultRouter(trailing_slash=False)
     for entry in working_set.iter_entry_points(ENTRY_POINT_API):
         try:
             router.register(entry.name, entry.load())
