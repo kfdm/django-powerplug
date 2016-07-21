@@ -6,35 +6,7 @@ from pkg_resources import working_set
 
 logger = logging.getLogger(__name__)
 
-ENTRY_POINT_API = 'powerplug.rest'
 ENTRY_POINT_APP = 'powerplug.apps'
-ENTRY_POINT_URL = 'powerplug.urls'
-ENTRY_POINT_NAV = 'powerplug.subnav'
-ENTRY_POINT_TASK = 'powerplug.task'
-
-
-def add_urls(urlpatterns):
-    from django.conf.urls import include, url
-    for entry in working_set.iter_entry_points(ENTRY_POINT_URL):
-        try:
-            urlpatterns.append(
-                url(r'^{0}/'.format(entry.name), include(entry.module_name, namespace=entry.name))
-            )
-        except ImportError:
-            logger.exception('Error importing %s', entry.name)
-
-
-def add_apis(urlpatterns):
-    from django.conf.urls import include, url
-    from rest_framework import routers
-    router = routers.DefaultRouter(trailing_slash=False)
-    for entry in working_set.iter_entry_points(ENTRY_POINT_API):
-        try:
-            router.register(entry.name, entry.load())
-        except ImportError:
-            logger.exception('Error importing %s', entry.name)
-
-    urlpatterns += url(r'^api/', include(router.urls, namespace='api')),
 
 
 def add_apps(installed_apps):
