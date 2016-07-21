@@ -10,6 +10,7 @@ ENTRY_POINT_API = 'powerplug.rest'
 ENTRY_POINT_APP = 'powerplug.apps'
 ENTRY_POINT_URL = 'powerplug.urls'
 ENTRY_POINT_NAV = 'powerplug.subnav'
+ENTRY_POINT_TASK = 'powerplug.task'
 
 
 def add_urls(urlpatterns):
