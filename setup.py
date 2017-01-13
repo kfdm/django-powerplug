@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 from powerplug.version import __version__
 
 setup(
-    name='django-powerplug',
+    name='powerplug',
     version=__version__,
     author='Paul Traylor',
     url='https://github.com/kfdm/django-powerplug',
