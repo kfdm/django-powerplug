@@ -7,6 +7,7 @@ from pkg_resources import working_set
 logger = logging.getLogger(__name__)
 
 ENTRY_POINT_APP = 'powerplug.apps'
+default_app_config = 'powerplug.apps.PowerplugConfig'
 
 
 def add_apps(installed_apps):
