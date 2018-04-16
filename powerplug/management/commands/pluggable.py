@@ -1,23 +1,27 @@
 
 
-from pkg_resources import working_set
-
-import powerplug
 from django.core.management.base import BaseCommand
+
+from pkg_resources import working_set
 
 
 class Command(BaseCommand):
-    def add_arguments(self, parser):
-        parser.add_argument('subcommand')
+    def handle(self, verbosity, **options):
+        for entry_point, title in [
+            ('powerplug.apps', 'Installed Apps'),
+            ('powerplug.rest', 'Installed APIs'),
+            ('powerplug.signal', 'Installed Signals'),
+            ('powerplug.task', 'Installed Tasks'),
+            ('powerplug.url', 'Installed URL'),
+        ]:
+            self.stdout.write(self.style.SUCCESS(title))
+            for entry in working_set.iter_entry_points(entry_point):
+                try:
+                    entry.load()
+                except ImportError as e:
 
-    def handle(self, *args, **options):
-        if options['subcommand'] == 'list':
-            return self._list(*args, **options)
-
-    def _list(self, *args, **options):
-        print('Installed Apps')
-        for entry in working_set.iter_entry_points(powerplug.ENTRY_POINT_APP):
-            print('\t', entry.module_name)
-        print('Installed APIs')
-        for entry in working_set.iter_entry_points(powerplug.ENTRY_POINT_API):
-            print('\t', entry.module_name)
+                    self.stdout.write(self.style.ERROR('\t ' + str(entry)))
+                    if verbosity > 0:
+                        self.stdout.write(self.style.ERROR(e))
+                else:
+                    print('\t', entry)
