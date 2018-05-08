@@ -12,7 +12,7 @@ class Command(BaseCommand):
             ('powerplug.rest', 'Installed APIs'),
             ('powerplug.signal', 'Installed Signals'),
             ('powerplug.task', 'Installed Tasks'),
-            ('powerplug.url', 'Installed URL'),
+            ('powerplug.urls', 'Installed URL'),
         ]:
             self.stdout.write(self.style.SUCCESS(title))
             for entry in working_set.iter_entry_points(entry_point):
