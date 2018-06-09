@@ -15,4 +15,5 @@ for entry in working_set.iter_entry_points('powerplug.rest'):
     except ImportError:
         logger.exception('Error importing %s', entry.name)
 
-urlpatterns = url(r'^api/', include(router.urls, namespace='api')),
+app_name = 'api'
+urlpatterns = url(r'^api/', include(router.urls)),

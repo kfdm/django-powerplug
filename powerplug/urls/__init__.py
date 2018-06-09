@@ -7,7 +7,7 @@ urlpatterns = []
 for entry in working_set.iter_entry_points('powerplug.urls'):
     try:
         urlpatterns.append(
-            url(r'^{0}/'.format(entry.name), include(entry.module_name, namespace=entry.name))
+            url(r'^{0}/'.format(entry.name), include(entry.module_name))
         )
     except ImportError:
         logger.exception('Error importing %s', entry.name)
